@@ -7,11 +7,13 @@ import { AppComponent } from './app.component';
 import { MaterializeModule } from 'angular2-materialize';
 import { Angular2TokenService } from 'angular2-token';
 import { HomeComponent } from './home/home.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
