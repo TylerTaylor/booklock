@@ -18,3 +18,41 @@ Migrating to DeviseTokenAuthCreateUsers (20171017210750)
   [1m[35m (1.8ms)[0m  [1m[35mCOMMIT[0m
   [1m[35m (13.9ms)[0m  [1m[34mSELECT pg_advisory_unlock(6005360597699066835)[0m
   [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/auth/sign_in" for 127.0.0.1 at 2017-10-18 09:17:31 -0500
+  [1m[35m (5.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"test@test.com", "password"=>"[FILTERED]", "session"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}
+Unpermitted parameter: :session
+Unpermitted parameter: :session
+  [1m[36mUser Load (14.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE (email = 'test@test.com' AND provider='email') ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Completed 401 Unauthorized in 334ms (Views: 1.2ms | ActiveRecord: 34.5ms)
+
+
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (1.7ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."provider" = $1 AND "users"."email" = $2[0m  [["provider", "email"], ["email", "test@test.com"]]
+  [1m[35mSQL (2.0ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "name", "nickname", "email", "tokens", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["uid", "test@test.com"], ["encrypted_password", "$2a$10$yxOoDHTmHwAIEVTefCcp1.LmnFfJppjgSM8378.v6UniwHlRBVMAS"], ["name", "Test"], ["nickname", "test1"], ["email", "test@test.com"], ["tokens", "{}"], ["created_at", "2017-10-18 14:22:04.388502"], ["updated_at", "2017-10-18 14:22:04.388502"]]
+  [1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/auth/sign_in" for 127.0.0.1 at 2017-10-18 09:32:21 -0500
+  [1m[35m (4.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DeviseTokenAuth::SessionsController#create as JSON
+  Parameters: {"email"=>"test@test.com", "password"=>"[FILTERED]", "session"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}
+Unpermitted parameter: :session
+Unpermitted parameter: :session
+  [1m[36mUser Load (7.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE (email = 'test@test.com' AND provider='email') ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Unpermitted parameter: :session
+Unpermitted parameter: :session
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.1ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "{\"Nwyp4MsGGumt9exyvkc0IA\":{\"token\":\"$2a$10$..NsnjlCHz.aF9KAJ5PuAO7XeYykvW51ALlCizT7MOpepPUaoTSIi\",\"expiry\":1509546743}}"], ["updated_at", "2017-10-18 14:32:23.782457"], ["id", 1]]
+  [1m[35m (32.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.8ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2017-10-18 14:32:23.828661"], ["last_sign_in_at", "2017-10-18 14:32:23.828661"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["updated_at", "2017-10-18 14:32:23.844452"], ["id", 1]]
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (2.8ms)[0m  [1m[37mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2 FOR UPDATE[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (1.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "{\"Nwyp4MsGGumt9exyvkc0IA\":{\"token\":\"$2a$10$oJUulgYlY8buz1oazbehEuvEc4uaa2IS54El6N7A2MlBTQEFERrjO\",\"expiry\":1509546744,\"last_token\":\"$2a$10$..NsnjlCHz.aF9KAJ5PuAO7XeYykvW51ALlCizT7MOpepPUaoTSIi\",\"updated_at\":\"2017-10-18T09:32:24.221-05:00\"}}"], ["updated_at", "2017-10-18 14:32:24.223970"], ["id", 1]]
+  [1m[35m (3.3ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 2054ms (Views: 1.3ms | ActiveRecord: 79.7ms)
+
+
