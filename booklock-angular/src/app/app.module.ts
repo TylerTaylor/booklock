@@ -13,6 +13,8 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
+import { ProfileComponent } from './profile/profile.component';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { AuthService } from './services/auth.service';
     NavbarComponent,
     AuthDialogComponent,
     LoginFormComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,7 @@ import { AuthService } from './services/auth.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [ Angular2TokenService, AuthService ],
+  providers: [ Angular2TokenService, AuthService, AuthGuard ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
