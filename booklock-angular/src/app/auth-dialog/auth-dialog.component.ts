@@ -18,11 +18,31 @@ export class AuthDialogComponent implements OnInit {
 
   constructor() { }
 
+  onLoginFormResult(e){
+    if(e.signedIn)
+      this.closeDialog();
+    else{
+      alert(e.err.json().errors[0]);
+    }
+  }
+
+  onRegisterFormResult(e){
+    if(e.signedUp)
+      this.closeDialog();
+    else{
+      alert(e.err.json().errors.full_messages[0]);
+    }
+  }
+
   // This sets the current authMode and displays the proper dialog.
   // We are emitting an action from the modalActions event emitter
   openDialog(mode: 'login' | 'register' = 'login'){
     this.authMode = mode;
     this.modalActions.emit({action: 'modal', params:['open']});
+  }
+
+  closeDialog(){
+    this.modalActions.emit({action: 'modal', params:['close']});
   }
 
   ngOnInit() {
