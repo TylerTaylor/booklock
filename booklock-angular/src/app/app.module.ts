@@ -15,7 +15,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
-import { UploadComponent } from './upload/upload.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +24,7 @@ import { UploadComponent } from './upload/upload.component';
     AuthDialogComponent,
     LoginFormComponent,
     RegisterFormComponent,
-    ProfileComponent,
-    UploadComponent
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
