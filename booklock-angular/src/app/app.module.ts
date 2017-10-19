@@ -16,6 +16,7 @@ import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
+import { UploadComponent } from './upload/upload.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { BookmarksComponent } from './bookmarks/bookmarks.component';
     LoginFormComponent,
     RegisterFormComponent,
     ProfileComponent,
-    BookmarksComponent
+    BookmarksComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule,
