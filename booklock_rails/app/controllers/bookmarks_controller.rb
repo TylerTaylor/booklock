@@ -37,6 +37,14 @@ class BookmarksController < ApplicationController
     @bookmark.destroy
   end
 
+  def parse
+    path = params["uploadFile"].path
+
+    bookmarks_xml = `plutil -convert xml1 -o - #{path}`
+
+    binding.pry
+  end
+
   private
 
     def set_bookmark
