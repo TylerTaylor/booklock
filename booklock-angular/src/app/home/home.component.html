@@ -1,8 +1,44 @@
-<div class="row">
+<!-- <div class="row">
   <div class="col s12">
     <h1>Welcome</h1>
     <p>
       BookLock blah blah blah put some real text here man!
     </p>
   </div>
+</div> -->
+
+<div class="center">
+  <h2>About BookLock</h2>
+  <br>
+  <hr class="size-thirty-three">
+  <br><br>
+
+  <div class="row">
+    <div class="col s4">
+      <i class="large material-icons">bookmark_border</i>
+      <br><br>
+      <p>BookLock was built to help organize your (Safari) bookmarks.</p>
+    </div>
+    <div class="col s4">
+      <i class="large material-icons">visibility</i>
+      <br><br>
+      <p>
+        You can see which links are <em>unread</em>, which links are <em>read</em>,
+        as well as count how many times they've been clicked.
+      </p>
+    </div>
+    <div class="col s4">
+      <i class="large material-icons">filter_list</i>
+      <br><br>
+      <p>
+        You can then order your bookmarks by view count, date added,
+        alphabetically, or via <em>tags</em>.
+      </p>
+    </div>
+  </div>
+
+  <br><br><br>
+  
+  <a *ngIf="!(authService.userSignedIn$ | async)" class="waves-effect green lighten-1 waves-light btn">Get Started</a>
+
 </div>
