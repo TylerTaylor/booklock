@@ -12,6 +12,9 @@
         </li>
 
         <li *ngIf="(authService.userSignedIn$ | async)">
+          <a routerLink="/bookmarks">BOOKMARKS</a>
+        </li>
+        <li *ngIf="(authService.userSignedIn$ | async)">
           <a routerLink="/upload">UPLOAD</a>
         </li>
         <li *ngIf="(authService.userSignedIn$ | async)">
