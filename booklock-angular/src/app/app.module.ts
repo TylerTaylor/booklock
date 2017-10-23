@@ -17,6 +17,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { UploadComponent } from './upload/upload.component';
+import { LoggedInGuard } from './guards/logged-in.guard';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { UploadComponent } from './upload/upload.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [ Angular2TokenService, AuthService, AuthGuard ],
+  providers: [ Angular2TokenService, AuthService, AuthGuard, LoggedInGuard ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

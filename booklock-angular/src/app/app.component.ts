@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import { environment } from '../environments/environment';
 import { Angular2TokenService } from 'angular2-token';
 import { Component } from '@angular/core';
