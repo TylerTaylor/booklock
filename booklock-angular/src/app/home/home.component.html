@@ -39,7 +39,7 @@
 
   <br><br><br>
   
-  <a *ngIf="!(authTokenService.currentUserData)" class="waves-effect green lighten-1 waves-light btn">Get Started</a>
+  <a *ngIf="!(authTokenService.currentUserData)" routerLink="/login" class="waves-effect green lighten-1 waves-light btn">Get Started</a>
   <a *ngIf="(authTokenService.currentUserData)" routerLink="/upload" class="waves-effect green lighten-1 waves-light btn">Get Started</a>
 
 

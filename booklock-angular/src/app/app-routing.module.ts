@@ -5,6 +5,8 @@ import { UploadComponent } from './upload/upload.component';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LoggedInGuard } from './guards/logged-in.guard';
+import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [
@@ -26,6 +28,11 @@ const routes: Routes = [
     path: 'bookmarks',
     component: BookmarksComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [LoggedInGuard]
   }
 ];
 

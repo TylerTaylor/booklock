@@ -9,11 +9,11 @@ export class LoggedInGuard implements CanActivate {
               private router:Router){}
   
   canActivate() {
-    if (this.authTokenService.userSignedIn()) {
-      return false;
+    if (!this.authTokenService.userSignedIn()) {
+      return true;
     } else {
       this.router.navigate(['/']);
-      return true;
+      return false;
     }
   }
 

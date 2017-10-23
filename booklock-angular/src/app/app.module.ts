@@ -18,6 +18,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { UploadComponent } from './upload/upload.component';
 import { LoggedInGuard } from './guards/logged-in.guard';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { LoggedInGuard } from './guards/logged-in.guard';
     RegisterFormComponent,
     ProfileComponent,
     BookmarksComponent,
-    UploadComponent
+    UploadComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
