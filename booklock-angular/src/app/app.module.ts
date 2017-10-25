@@ -19,6 +19,7 @@ import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { UploadComponent } from './upload/upload.component';
 import { LoggedInGuard } from './guards/logged-in.guard';
 import { LoginComponent } from './login/login.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { LoginComponent } from './login/login.component';
     MaterializeModule,
     HttpModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FileUploadModule
   ],
   providers: [ Angular2TokenService, AuthService, AuthGuard, LoggedInGuard ],
   bootstrap: [AppComponent]

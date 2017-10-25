@@ -25,8 +25,4 @@ export class BookmarksComponent implements OnInit {
       })
   }
 
-  fileChange(event){
-    
-  }
-
 }
