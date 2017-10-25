@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthService } from './../services/auth.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
@@ -15,7 +16,7 @@ export class LoginFormComponent implements OnInit {
 
   @Output() onFormResult = new EventEmitter<any>();
 
-  constructor(public authService:AuthService) { }
+  constructor(public authService:AuthService, private router:Router) { }
 
   ngOnInit() {
   }
@@ -27,6 +28,10 @@ export class LoginFormComponent implements OnInit {
       res => {
         if (res.status == 200){
           this.onFormResult.emit({signedIn: true, res});
+        }
+
+        if (this.router.url === '/login') {
+          this.router.navigate(['/'])
         }
       },
 
