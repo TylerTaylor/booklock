@@ -20,6 +20,7 @@ import { UploadComponent } from './upload/upload.component';
 import { LoggedInGuard } from './guards/logged-in.guard';
 import { LoginComponent } from './login/login.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     ProfileComponent,
     BookmarksComponent,
     UploadComponent,
-    LoginComponent
+    LoginComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
