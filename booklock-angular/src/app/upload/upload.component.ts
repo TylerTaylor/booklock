@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,7 +12,7 @@ import { FileUploader } from 'ng2-file-upload';
 export class UploadComponent implements OnInit {
   bookmarks;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private router: Router) { }
 
   ngOnInit() {
   }
@@ -36,8 +37,17 @@ export class UploadComponent implements OnInit {
       })
 
       xhr.open("POST", "http://localhost:3000/upload", true)
+      
+      xhr.onreadystatechange = () => {
+        if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200){
+          this.router.navigate(['/bookmarks'])
+        }
+      }
+
       xhr.send(formData)
     }
+
+    // this.router.navigate(['/bookmarks'])
   }
 
 }

@@ -1,3 +1,11 @@
-<p>
-  bookmarks works!
-</p>
+<h2>Your Bookmarks</h2>
+
+<div class="center">
+  <app-loader [loading]="loading"></app-loader>
+</div>
+
+<ul>
+  <li *ngFor="let bookmark of bookmarks">
+    <a href="{{bookmark.url}}">{{ bookmark.name }}</a>
+  </li>
+</ul>
