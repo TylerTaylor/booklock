@@ -47,6 +47,9 @@ class BookmarksController < ApplicationController
   end
 
   def build_reading_list(plist_file)
+
+    binding.pry
+
     begin
       # first we parse the xml
       # grab the "Children"
@@ -84,7 +87,6 @@ class BookmarksController < ApplicationController
     # Here is where we actually create our bookmark objects
     # TODO: This needs to be sorted out, I think it should differentiate reading list from bookmarks.
     new_reading_list.each do |bookmark|
-      binding.pry
       Bookmark.create(name: bookmark["title"], url: bookmark["url"], reading_list: true)
     end
 
@@ -99,5 +101,9 @@ class BookmarksController < ApplicationController
     def bookmark_params
       params.require(:bookmark).permit(:name, :url, :reading_list)
     end
+
+    # def current_user
+    #   binding.pry
+    # end
 
 end
