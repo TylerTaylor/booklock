@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
@@ -43,7 +44,8 @@ import { LoaderComponent } from './loader/loader.component';
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
-    FileUploadModule
+    FileUploadModule,
+    RouterModule
   ],
   providers: [ Angular2TokenService, AuthService, AuthGuard, LoggedInGuard ],
   bootstrap: [AppComponent]

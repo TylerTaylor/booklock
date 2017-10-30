@@ -38,6 +38,7 @@ class BookmarksController < ApplicationController
   end
 
   def parse
+    # binding.pry
     path = params["uploadFile"].path
 
     bookmarks_xml = `plutil -convert xml1 -o - #{path}`
@@ -48,7 +49,7 @@ class BookmarksController < ApplicationController
 
   def build_reading_list(plist_file)
 
-    binding.pry
+    # binding.pry
 
     begin
       # first we parse the xml
@@ -87,7 +88,8 @@ class BookmarksController < ApplicationController
     # Here is where we actually create our bookmark objects
     # TODO: This needs to be sorted out, I think it should differentiate reading list from bookmarks.
     new_reading_list.each do |bookmark|
-      Bookmark.create(name: bookmark["title"], url: bookmark["url"], reading_list: true)
+      # Bookmark.create(name: bookmark["title"], url: bookmark["url"], reading_list: true)
+      @current_user.bookmarks.create(name: bookmark["title"], url: bookmark["url"], reading_list: true)
     end
 
   end

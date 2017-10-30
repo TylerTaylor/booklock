@@ -9,9 +9,23 @@ export class AuthService {
   userSignedIn$:Subject<boolean> = new Subject();
 
   constructor(public authService:Angular2TokenService) {
+    // debugger;
     this.authService.validateToken().subscribe(
-      res => res.status == 200 ? this.userSignedIn$.next(res.json().success) : this.userSignedIn$.next(false)
+      // res => res.status == 200 ? this.userSignedIn$.next(res.json().success) : this.userSignedIn$.next(false)
+      res => {
+        // debugger;
+        if (res.status == 200) {
+          this.userSignedIn$.next(res.json().success)
+          // this.checkUser()
+        } else {
+          this.userSignedIn$.next(false)
+        }
+      }
     )
+  }
+
+  checkUser(){
+    debugger;
   }
 
   logOutUser():Observable<Response>{
