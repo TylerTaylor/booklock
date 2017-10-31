@@ -4,8 +4,10 @@
   <app-loader [loading]="loading"></app-loader>
 </div>
 
+<input [(ngModel)]="searchText" placeholder="Search">
+
 <ul>
-  <li *ngFor="let bookmark of bookmarks | paginate: { itemsPerPage: 25, currentPage: p }">
+  <li *ngFor="let bookmark of bookmarks | filter : searchText | paginate: { itemsPerPage: 25, currentPage: p }">
     <a href="{{bookmark.url}}">{{ bookmark.name }}</a>
   </li>
 

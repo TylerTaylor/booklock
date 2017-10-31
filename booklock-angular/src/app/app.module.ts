@@ -23,6 +23,8 @@ import { LoginComponent } from './login/login.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { LoaderComponent } from './loader/loader.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FilterPipe } from './filter.pipe';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     BookmarksComponent,
     UploadComponent,
     LoginComponent,
-    LoaderComponent
+    LoaderComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
