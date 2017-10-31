@@ -23,8 +23,11 @@ RSpec.describe Bookmark, type: :model do
     expect(bookmark.errors[:url]).to include("can't be blank")
   end
 
-  # it "is invalid with a duplicate url" do
-
-  # end
+  it "is invalid with a duplicate url" do
+    FactoryGirl.create(:bookmark, url: "http://tynicolas.com")
+    bookmark = FactoryGirl.build(:bookmark, url: "http://tynicolas.com")
+    bookmark.valid?
+    expect(bookmark.errors[:url]).to include("has already been taken")
+  end
 
 end
