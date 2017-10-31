@@ -1,7 +1,15 @@
-<div class="row center" style="margin-top: 8%;">
+<div *ngIf="!loading" class="row center" style="margin-top: 8%;">
   <h3>Upload Your Safari .plist File</h3>
   
   <!-- Loader progress bar here? -->
   <!-- or in the "bookmarks" component? -->
   <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".plist">
+</div>
+
+<div *ngIf="loading" class="row center" style="margin-top: 8%;">
+  <h3>Please wait while we process your bookmarks</h3>
+
+  <div class="center">
+    <app-loader [loading]="loading"></app-loader>
+  </div>
 </div>

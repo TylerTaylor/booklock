@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class UploadComponent implements OnInit {
   bookmarks;
+  loading: boolean = false;
 
   constructor(private http: Http, private router: Router, private authService:Angular2TokenService) {
     // debugger;
@@ -22,6 +23,8 @@ export class UploadComponent implements OnInit {
   }
 
   fileChange(event) {
+    this.loading = true;
+
     let fileList: FileList = event.target.files;
 
     if (fileList.length > 0) {
@@ -64,6 +67,7 @@ export class UploadComponent implements OnInit {
         .subscribe(
           data => {
             console.log('success')
+            this.loading = false;
             this.router.navigate(['/bookmarks'])
           },
 
