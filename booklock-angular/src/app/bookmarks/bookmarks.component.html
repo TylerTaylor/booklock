@@ -5,7 +5,10 @@
 </div>
 
 <ul>
-  <li *ngFor="let bookmark of bookmarks">
+  <li *ngFor="let bookmark of bookmarks | paginate: { itemsPerPage: 25, currentPage: p }">
     <a href="{{bookmark.url}}">{{ bookmark.name }}</a>
   </li>
+
 </ul>
+
+<pagination-controls (pageChange)="p = $event"></pagination-controls>

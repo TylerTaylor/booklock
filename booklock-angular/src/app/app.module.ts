@@ -1,5 +1,5 @@
-import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
@@ -22,6 +22,7 @@ import { LoggedInGuard } from './guards/logged-in.guard';
 import { LoginComponent } from './login/login.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { LoaderComponent } from './loader/loader.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { LoaderComponent } from './loader/loader.component';
     FormsModule,
     ReactiveFormsModule,
     FileUploadModule,
-    RouterModule
+    RouterModule,
+    NgxPaginationModule
   ],
   providers: [ Angular2TokenService, AuthService, AuthGuard, LoggedInGuard ],
   bootstrap: [AppComponent]

@@ -9,6 +9,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 export class BookmarksComponent implements OnInit {
   title = 'Bookmarks';
   bookmarks;
+  page: number = 1;
 
   loading: boolean = false;
 
