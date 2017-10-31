@@ -91,6 +91,11 @@ class BookmarksController < ApplicationController
 
     # Here is where we actually create our bookmark objects
     new_reading_list.each do |bookmark|
+      # Do want to do all these queries here?? Could be a lot
+      # existing = Bookmark.where(url: bookmark["url"])
+
+      # We could prevent them from being created by making the url unique on the bookmark model, no?
+      # binding.pry
       @current_user.bookmarks.create(name: bookmark["title"], url: bookmark["url"], reading_list: true)
     end
 
