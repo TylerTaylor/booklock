@@ -40,6 +40,7 @@ GEM
       tzinfo (~> 1.1)
     arel (8.0.0)
     bcrypt (3.1.11)
+    brakeman (3.6.1)
     builder (3.2.3)
     byebug (9.1.0)
     coderay (1.1.2)
@@ -150,6 +151,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  brakeman
   byebug
   devise_token_auth
   listen (>= 3.0.5, < 3.2)

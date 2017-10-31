@@ -3,6 +3,8 @@ class BookmarksController < ApplicationController
 
   # GET /bookmarks
   def index
+    # TODO: This shouldn't be the entire collection of bookmarks
+    # It should only be the bookmarks related to the current user
     @bookmarks = Bookmark.all
     render json: @bookmarks
   end
@@ -41,15 +43,17 @@ class BookmarksController < ApplicationController
     # binding.pry
     path = params["uploadFile"].path
 
+    # WARNING: Command Injection vulnerability...
     bookmarks_xml = `plutil -convert xml1 -o - #{path}`
+
+    # ATTEMPT TO FIX: this just returns "true" for some reason...
+    # bookmarks_xml = system("plutil", "-convert", "xml1", "-o", "-", path)
 
     # We also need to do this for actual bookmarks, not just reading list
     build_reading_list(bookmarks_xml)
   end
 
   def build_reading_list(plist_file)
-
-    # binding.pry
 
     begin
       # first we parse the xml
@@ -86,9 +90,7 @@ class BookmarksController < ApplicationController
     end # /begin
 
     # Here is where we actually create our bookmark objects
-    # TODO: This needs to be sorted out, I think it should differentiate reading list from bookmarks.
     new_reading_list.each do |bookmark|
-      # Bookmark.create(name: bookmark["title"], url: bookmark["url"], reading_list: true)
       @current_user.bookmarks.create(name: bookmark["title"], url: bookmark["url"], reading_list: true)
     end
 
@@ -103,9 +105,5 @@ class BookmarksController < ApplicationController
     def bookmark_params
       params.require(:bookmark).permit(:name, :url, :reading_list)
     end
-
-    # def current_user
-    #   binding.pry
-    # end
 
 end
