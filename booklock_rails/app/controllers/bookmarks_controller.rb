@@ -3,9 +3,7 @@ class BookmarksController < ApplicationController
 
   # GET /bookmarks
   def index
-    # TODO: This shouldn't be the entire collection of bookmarks
-    # It should only be the bookmarks related to the current user
-    @bookmarks = Bookmark.all
+    @bookmarks = Bookmark.where(user_id: @current_user.id)
     render json: @bookmarks
   end
 
@@ -91,11 +89,8 @@ class BookmarksController < ApplicationController
 
     # Here is where we actually create our bookmark objects
     new_reading_list.each do |bookmark|
-      # Do want to do all these queries here?? Could be a lot
-      # existing = Bookmark.where(url: bookmark["url"])
-
-      # We could prevent them from being created by making the url unique on the bookmark model, no?
-      # binding.pry
+      # TODO: Do we want to keep track of how many successfully save and how many / which get rejected?
+      # that way we can show the user what got rejected and why?
       @current_user.bookmarks.create(name: bookmark["title"], url: bookmark["url"], reading_list: true)
     end
 
