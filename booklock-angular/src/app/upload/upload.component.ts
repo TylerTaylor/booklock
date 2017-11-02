@@ -15,6 +15,11 @@ export class UploadComponent implements OnInit {
   bookmarks;
   loading: boolean = false;
 
+  singleBookmark = {
+    name: '',
+    url: ''
+  }
+
   constructor(private http: Http, private router: Router, private authService:Angular2TokenService) {
     // debugger;
   }
@@ -76,6 +81,34 @@ export class UploadComponent implements OnInit {
     }
 
     // this.router.navigate(['/bookmarks'])
+  }
+
+  createSingleBookmark() {
+    // this.singleBookmark looks like this => 
+    //   {name: "test", url: "http://tynicolas.com"}
+    // The form is working.
+    // Now we need to communicate with the backend and send our singleBookmark data
+    // as well as our Auth headers
+
+    let headers = new Headers()
+    headers.append("access-token", this.authService.currentAuthData["accessToken"])
+    headers.append("expiry", this.authService.currentAuthData["expiry"])
+    headers.append("token-type", this.authService.currentAuthData["tokenType"])
+    headers.append("uid", this.authService.currentAuthData["uid"])
+    headers.append("client", this.authService.currentAuthData["client"])
+
+    let options = new RequestOptions({ headers: headers })
+
+    this.http.post("http://localhost:3000/upload_single", this.singleBookmark, options)
+      .map(res => res.json())
+      .catch(error => Observable.throw(error))
+      .subscribe(
+        data => {
+          this.router.navigate(['/bookmarks'])
+        },
+
+        error => console.log(error)
+      )
   }
 
 }

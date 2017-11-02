@@ -1,16 +1,41 @@
-<h2>Your Bookmarks</h2>
-
 <div class="center">
+  <h3>Your Bookmarks</h3>
   <app-loader [loading]="loading"></app-loader>
 </div>
 
-<input [(ngModel)]="searchText" placeholder="Search">
+<div class="bookmarks-container" *ngIf="!loading">
+  <input [(ngModel)]="searchText" placeholder="Search">
+  
+  <ul>
+    <div class="row">
+      <li *ngFor="let bookmark of bookmarks | filter : searchText | paginate: { itemsPerPage: 20, currentPage: p }">
 
-<ul>
-  <li *ngFor="let bookmark of bookmarks | filter : searchText | paginate: { itemsPerPage: 25, currentPage: p }">
-    <a href="{{bookmark.url}}">{{ bookmark.name }}</a>
-  </li>
-
-</ul>
-
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <div class="col s2 m3">
+          <div class="card grey lighten-3">
+            <div class="card-content">
+              <span class="card-title"><a href="{{bookmark.url}}">{{ bookmark.name }}</a></span>
+            </div>
+            <div class="card-action center">
+              <!-- This favorite_border should switch to 'favorite' when clicked
+                   and the link should go to a 'like' or 'favorite' feature in the backend -->
+              <div class="row">
+                <div class="col s4">
+                  <a href=""><i class="material-icons grey-text">favorite_border</i></a>
+                </div>
+                <div class="col s4">
+                  <a href=""><i class="material-icons grey-text">edit</i></a>
+                </div>
+                <div class="col s4">
+                  <a href=""><i class="material-icons grey-text">delete</i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- end col s2 m3 -->
+        
+      </li>
+    </div> <!-- end row -->
+  </ul>
+  
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>

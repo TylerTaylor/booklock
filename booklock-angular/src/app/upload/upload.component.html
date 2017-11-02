@@ -1,7 +1,40 @@
 <div *ngIf="!loading" class="row center" style="margin-top: 8%;">
   <h3>Upload Your Safari .plist File</h3>
-  
+  <br>
   <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".plist">
+
+  <br><br>
+  <p>Or</p>
+
+  <h5>Create a Single Bookmark</h5>
+  <div class="form center" style="width: 60%; margin: 0 auto;">
+    <form (ngSubmit)="createSingleBookmark()" #f="ngForm">
+      
+      <div class="row">
+  
+        <div class="input-field col s12">
+          <input type="text" id="name" required name="name"
+                 [(ngModel)]="singleBookmark.name" class="validate">
+          <label for="name">Name</label>
+        </div>
+  
+        <div class="input-field col s12">
+          <input type="text" id="url" required name="url"
+                 [(ngModel)]="singleBookmark.url" class="validate">
+          <label for="url">Url</label>
+        </div>
+  
+        <div class="col s12 flex-container">
+          <button type="submit" [disabled]="!(f.valid)" [ngClass]="{'disabled': !(f.valid)}"
+                  class="waves-effect waves-light btn orange">
+            Create Bookmark
+          </button>
+        </div>
+  
+      </div>
+  
+    </form>
+  </div>
 </div>
 
 <div *ngIf="loading" class="row center" style="margin-top: 8%;">
