@@ -3,7 +3,7 @@ class BookmarksController < ApplicationController
 
   # GET /bookmarks
   def index
-    @bookmarks = Bookmark.where(user_id: @current_user.id)
+    @bookmarks = Bookmark.where(user_id: @current_user.id).order('created_at DESC')
     render json: @bookmarks
   end
 
@@ -14,7 +14,8 @@ class BookmarksController < ApplicationController
 
   # POST /bookmarks
   def create
-    @bookmark = Bookmark.new(bookmark_params)
+    # @bookmark = Bookmark.new(bookmark_params)
+    @bookmark = @current_user.bookmarks.build(bookmark_params)
 
     if @bookmark.save
       render json: @bookmark, status: :created, location: @bookmark
@@ -88,7 +89,7 @@ class BookmarksController < ApplicationController
     end # /begin
 
     # Here is where we actually create our bookmark objects
-    new_reading_list.each do |bookmark|
+    new_reading_list.reverse_each do |bookmark|
       # TODO: Do we want to keep track of how many successfully save and how many / which get rejected?
       # that way we can show the user what got rejected and why?
       @current_user.bookmarks.create(name: bookmark["title"], url: bookmark["url"], reading_list: true)
