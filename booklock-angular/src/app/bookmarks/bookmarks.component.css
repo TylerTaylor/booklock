@@ -1,7 +1,22 @@
 .card-action{
     font-size: 0.8em;
+    display: flex;
+    justify-content: space-around;
 }
 
 .card-action .row {
     margin-bottom: 0px;
+}
+
+.card.small {
+    height: 220px; 
+}
+
+.card .card-title {
+    font-size: 1.25em;
+    font-weight: 300;
+}
+
+.btn-flat {
+    padding: 0px;
 }
