@@ -56,4 +56,8 @@ export class BookmarksComponent implements OnInit {
     }
   }
 
+  scrollUp() {
+    window.scrollTo(0,0);
+  }
+
 }
