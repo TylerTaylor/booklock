@@ -23,6 +23,12 @@
                  [(ngModel)]="singleBookmark.url" class="validate">
           <label for="url">Url</label>
         </div>
+
+        <div class="input-field col s12">
+          <input type="text" id="tag_list" name="tag_list"
+                 [(ngModel)]="singleBookmark.tag_list">
+          <label for="tag_list">Tags (seperated by commas)</label>
+        </div>
   
         <div class="col s12 flex-container">
           <button type="submit" [disabled]="!(f.valid)" [ngClass]="{'disabled': !(f.valid)}"
