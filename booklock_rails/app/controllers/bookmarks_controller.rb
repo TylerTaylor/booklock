@@ -3,7 +3,12 @@ class BookmarksController < ApplicationController
 
   # GET /bookmarks
   def index
-    @bookmarks = Bookmark.where(user_id: @current_user.id).order('created_at DESC')
+    if params[:tag]
+      @bookmarks = Bookmark.tagged_with(params[:tag])
+    else
+      @bookmarks = Bookmark.where(user_id: @current_user.id).order('created_at DESC')
+    end
+
     render json: @bookmarks
   end
 
@@ -104,7 +109,7 @@ class BookmarksController < ApplicationController
     end
 
     def bookmark_params
-      params.require(:bookmark).permit(:name, :url, :reading_list)
+      params.permit(:name, :url, :tag_list)
     end
 
 end
