@@ -100,8 +100,6 @@ export class UploadComponent implements OnInit {
 
     let options = new RequestOptions({ headers: headers })
 
-    debugger;
-
     this.http.post("http://localhost:3000/upload_single", this.singleBookmark, options)
       .map(res => res.json())
       .catch(error => Observable.throw(error))
