@@ -13,11 +13,6 @@ export class EditBookmarkComponent implements OnInit {
 
   headers = new Headers();
 
-  // bookmark = {
-  //   name: '',
-  //   url: '',
-  //   tag_list: ''
-  // }
   bookmark;
 
   constructor(private authService: Angular2TokenService, private http: Http, private route: ActivatedRoute, private router: Router) {
@@ -29,23 +24,14 @@ export class EditBookmarkComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Probably should get the bookmark object here. We don't need a rails request do we? Should have the JS object? Or get it? How!?
-    // debugger;
-
-    // Or do I just send a patch request to the rails update route? Will our bookmarks component auto update? Stay tuned!
-
-    // Well we need the friggin bookmark data to edit in the first place sooo yes a get request of some sort is necessary
-
     let id = this.route.snapshot.params.id
     this.http.get('http://localhost:3000/bookmarks/' + id)
       .subscribe(res => {
         this.bookmark = res.json();
-        // Materialize.updateTextFields();
         // Create a comma separated list for our input field, named tag_list for convenience when saving to rails db
         this.bookmark["tag_list"] = this.bookmark.tags.map(tag => tag.name).join(', ')
       })
   }
-
 
   editBookmark() {
     let options = new RequestOptions({ headers: this.headers })
