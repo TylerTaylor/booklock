@@ -14,7 +14,7 @@ class BookmarksController < ApplicationController
 
   # GET /bookmarks/1
   def show
-    render json: @bookmark
+    render json: @bookmark, :include => :tags
   end
 
   # POST /bookmarks
