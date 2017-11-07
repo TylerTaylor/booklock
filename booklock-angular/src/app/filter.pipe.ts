@@ -12,7 +12,17 @@ export class FilterPipe implements PipeTransform {
         searchText = searchText.toLowerCase();
 
         return items.filter( item => {
-            return item.name.toLowerCase().includes(searchText);
+            // look for match in name || tags
+            return ( item.name.toLowerCase().includes(searchText) || this.filterTags(item, searchText) );
         });
     }
+
+    filterTags(item, searchText){
+        for(let i=0; i < item.tags.length; i++){
+            if (item.tags[i].name.includes(searchText)){
+                return item;
+            }
+        }
+    }
+
 }
