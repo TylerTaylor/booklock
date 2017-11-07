@@ -1,3 +1,4 @@
+import { EditBookmarkComponent } from './edit-bookmark/edit-bookmark.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
@@ -38,6 +39,11 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     canActivate: [LoggedInGuard]
+  },
+  {
+    path: 'edit/:id',
+    component: EditBookmarkComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

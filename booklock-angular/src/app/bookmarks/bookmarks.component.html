@@ -20,7 +20,7 @@
               <!-- This favorite_border should switch to 'favorite' when clicked
                 and the link should go to a 'like' or 'favorite' feature in the backend -->
               <button class="btn-flat"><i class="material-icons grey-text">favorite_border</i></button>
-              <button class="btn-flat"><i class="material-icons grey-text">edit</i></button>
+              <button class="btn-flat" [routerLink]="['/edit', bookmark.id]"><i class="material-icons grey-text">edit</i></button>
               <button class="btn-flat center" (click)="deleteBookmark(bookmark.id)"><i class="material-icons grey-text">delete</i></button>
 
             </div>

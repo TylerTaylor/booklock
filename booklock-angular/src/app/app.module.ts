@@ -24,6 +24,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { LoaderComponent } from './loader/loader.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterPipe } from './filter.pipe';
+import { EditBookmarkComponent } from './edit-bookmark/edit-bookmark.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { FilterPipe } from './filter.pipe';
     UploadComponent,
     LoginComponent,
     LoaderComponent,
-    FilterPipe
+    FilterPipe,
+    EditBookmarkComponent
   ],
   imports: [
     BrowserModule,

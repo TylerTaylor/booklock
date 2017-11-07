@@ -15,7 +15,15 @@ export class BookmarksComponent implements OnInit {
 
   loading: boolean = false;
 
-  constructor(private http: Http, private authService: Angular2TokenService, private route: ActivatedRoute) { }
+  headers = new Headers();
+
+  constructor(private http: Http, private authService: Angular2TokenService, private route: ActivatedRoute) {
+    this.headers.append("access-token", this.authService.currentAuthData["accessToken"])
+    this.headers.append("expiry", this.authService.currentAuthData["expiry"])
+    this.headers.append("token-type", this.authService.currentAuthData["tokenType"])
+    this.headers.append("uid", this.authService.currentAuthData["uid"])
+    this.headers.append("client", this.authService.currentAuthData["client"])
+  }
 
   ngOnInit() {
 
@@ -73,6 +81,11 @@ export class BookmarksComponent implements OnInit {
           this.bookmarks = this.bookmarks.filter(bookmark => bookmark.id !== id)
         })
     }
+  }
+
+  editBookmark(id) {
+    let options = new RequestOptions({ headers: this.headers })
+    debugger;
   }
 
   scrollUp() {
