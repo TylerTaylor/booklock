@@ -9,7 +9,7 @@ class BookmarksController < ApplicationController
       @bookmarks = Bookmark.where(user_id: @current_user.id).order('created_at DESC')
     end
 
-    render json: @bookmarks
+    render json: @bookmarks, :include => :tags
   end
 
   # GET /bookmarks/1
