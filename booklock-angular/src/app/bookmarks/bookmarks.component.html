@@ -13,8 +13,9 @@
         <div class="col s2 m3">
           <div class="card small grey lighten-3">
             <div class="card-content" [ngClass]="{'add-length': moreTags}">
-              <span class="card-title"><a href="{{bookmark.url}}">{{ bookmark.name }}</a></span>
-              <p>View Count: X</p>
+              <!-- When this link is clicked, add to our view count -->
+              <span class="card-title"><a href="{{bookmark.url}}" target="_blank" (click)="increaseViewCount(bookmark.id)">{{ bookmark.name }}</a></span>
+              <p>Views: {{bookmark.view_count}}</p>
 
               <div class="tags flex-container">
                 <p>Tags:</p>
@@ -23,8 +24,6 @@
                        but we want a "more" button that will expand the card to show all of the tags -->
                   <li *ngFor="let tag of bookmark.tags; let i=index">
                     <div class="tag" *ngIf="i<5">
-                      <!-- <button class="btn-flat">{{tag.name}}</button> -->
-                      <!-- <a class="btn">{{tag.name}}</a> -->
                       <button class="btn">{{tag.name}}</button>
                     </div>
                     <div class="more-tags" *ngIf="i==6">

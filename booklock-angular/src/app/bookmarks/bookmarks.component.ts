@@ -97,4 +97,16 @@ export class BookmarksComponent implements OnInit {
     window.scrollTo(0,0);
   }
 
+  increaseViewCount(bookmarkId) {
+    let options = new RequestOptions({ headers: this.headers })
+
+    this.http.get('http://localhost:3000/add_viewing/' + bookmarkId, options)
+      .subscribe(res => {
+        let bookmark;
+        let index = this.bookmarks.findIndex(x => x.id == bookmarkId)
+
+        this.bookmarks[index] = res.json();
+      })
+  }
+
 }
