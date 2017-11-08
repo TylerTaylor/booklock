@@ -12,22 +12,53 @@
 
         <div class="col s2 m3">
           <div class="card small grey lighten-3">
-            <div class="card-content">
+            <div class="card-content" [ngClass]="{'add-length': moreTags}">
               <span class="card-title"><a href="{{bookmark.url}}">{{ bookmark.name }}</a></span>
+              <p>View Count: X</p>
+
+              <div class="tags flex-container">
+                <p>Tags:</p>
+                <ul class="flex-container" *ngIf="!moreTags">
+                  <!-- We want to keep the initial list of tags small to fit the card
+                       but we want a "more" button that will expand the card to show all of the tags -->
+                  <li *ngFor="let tag of bookmark.tags; let i=index">
+                    <div class="tag" *ngIf="i<5">
+                      <!-- <button class="btn-flat">{{tag.name}}</button> -->
+                      <!-- <a class="btn">{{tag.name}}</a> -->
+                      <button class="btn">{{tag.name}}</button>
+                    </div>
+                    <div class="more-tags" *ngIf="i==6">
+                      <button class="btn activator">more...</button>
+                    </div>
+                  </li>
+                </ul>
+
+              </div>
+
             </div>
-            <div class="card-action center">
-              
-              <!-- This favorite_border should switch to 'favorite' when clicked
+
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">{{bookmark.name}}<i class="material-icons right">close</i></span>
+              <ul class="flex-container">
+                <li *ngFor="let tag of bookmark.tags">
+                  <div class="tag">
+                    <button class="btn">{{tag.name}}</button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="card-action center">  
+              <!-- This favorite_border should switch to 'favorite' when clicked / already favorited in the backend
                 and the link should go to a 'like' or 'favorite' feature in the backend -->
               <button class="btn-flat"><i class="material-icons grey-text">favorite_border</i></button>
               <button class="btn-flat" [routerLink]="['/edit', bookmark.id]"><i class="material-icons grey-text">edit</i></button>
               <button class="btn-flat center" (click)="deleteBookmark(bookmark.id)"><i class="material-icons grey-text">delete</i></button>
-
-            </div>
-          </div>
+            </div> <!-- end card-action -->
+          </div> <!-- end card small -->
         </div> <!-- end col s2 m3 -->
           
-      </li>
+      </li> <!-- end bookmarks loop -->
     </div> <!-- end row -->
   </ul>
   

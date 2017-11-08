@@ -14,6 +14,7 @@ export class BookmarksComponent implements OnInit {
   page: number = 1;
 
   loading: boolean = false;
+  moreTags: boolean = false;
 
   headers = new Headers();
 
@@ -86,6 +87,10 @@ export class BookmarksComponent implements OnInit {
   editBookmark(id) {
     let options = new RequestOptions({ headers: this.headers })
     debugger;
+  }
+
+  showMoreTags() {
+    this.moreTags = true;
   }
 
   scrollUp() {
