@@ -109,4 +109,10 @@ export class BookmarksComponent implements OnInit {
       })
   }
 
+  linkClicked(bookmark) {
+    this.increaseViewCount(bookmark.id)
+
+    window.open(bookmark.url, "_blank")
+  }
+
 }
