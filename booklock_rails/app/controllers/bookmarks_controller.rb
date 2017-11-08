@@ -1,5 +1,5 @@
 class BookmarksController < ApplicationController
-  before_action :set_bookmark, only: [:show, :update, :destroy]
+  before_action :set_bookmark, only: [:show, :update, :destroy, :increase_view_count]
 
   # GET /bookmarks
   def index
@@ -100,6 +100,12 @@ class BookmarksController < ApplicationController
       @current_user.bookmarks.create(name: bookmark["title"], url: bookmark["url"], reading_list: true)
     end
 
+  end
+
+  def increase_view_count
+    @bookmark.view_count += 1
+    @bookmark.save
+    render json: @bookmark, :include => :tags
   end
 
   private
