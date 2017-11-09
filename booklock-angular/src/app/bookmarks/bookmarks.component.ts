@@ -13,6 +13,7 @@ export class BookmarksComponent implements OnInit {
   title = 'Bookmarks';
   bookmarks;
   sortedBookmarks;
+  tagToFilter;
   page: number = 1;
 
   loading: boolean = false;
@@ -120,7 +121,13 @@ export class BookmarksComponent implements OnInit {
   filterByTag(value) {
     // simply sorting by one tag right now
     // problem is, how do i get back to the full list of bookmarks after being done filtering?
+    this.tagToFilter = value.toLowerCase()
     this.sortedBookmarks = this.bookmarks.filter(bookmark => this.filter.filterTags(bookmark, value))
+  }
+
+  endFilter() {
+    this.tagToFilter = null;
+    this.sortedBookmarks = null;
   }
 
 }

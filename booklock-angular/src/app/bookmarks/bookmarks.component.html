@@ -5,7 +5,14 @@
 </div>
 
 <div class="bookmarks-container" *ngIf="!loading">
-  <input [(ngModel)]="searchText" placeholder="Search">
+  <div class="filter-controls">
+    <input [(ngModel)]="searchText" placeholder="Search">
+
+    <div *ngIf="tagToFilter" class="tag-filters">
+      <p>Filter by tag: <button class="btn">{{tagToFilter}}</button><button class="btn-flat"><i class="material-icons" (click)="endFilter()">clear</i></button></p>
+    </div>
+
+  </div>
   
   <ul>
     <div class="row">

@@ -80,3 +80,22 @@
 .add-pointer {
     cursor: pointer;
 }
+
+.filter-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter-controls input {
+    width: 25%;
+}
+
+.tag-filters {
+    font-size: 0.9em;
+}
+
+.tag-filters i, .tag-filters .btn {
+    margin-left: 5px;
+    align-self: center;
+}
