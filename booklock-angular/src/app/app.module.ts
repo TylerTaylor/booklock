@@ -26,7 +26,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterPipe } from './filter.pipe';
 import { EditBookmarkComponent } from './edit-bookmark/edit-bookmark.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +53,7 @@ import { EditBookmarkComponent } from './edit-bookmark/edit-bookmark.component';
     RouterModule,
     NgxPaginationModule
   ],
-  providers: [ Angular2TokenService, AuthService, AuthGuard, LoggedInGuard ],
+  providers: [ Angular2TokenService, AuthService, AuthGuard, LoggedInGuard, FilterPipe ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

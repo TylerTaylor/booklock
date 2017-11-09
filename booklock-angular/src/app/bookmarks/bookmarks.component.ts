@@ -1,3 +1,4 @@
+import { FilterPipe } from './../filter.pipe';
 import { Angular2TokenService } from 'angular2-token';
 import { Component, OnInit } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
@@ -11,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class BookmarksComponent implements OnInit {
   title = 'Bookmarks';
   bookmarks;
+  sortedBookmarks;
   page: number = 1;
 
   loading: boolean = false;
@@ -18,7 +20,7 @@ export class BookmarksComponent implements OnInit {
 
   headers = new Headers();
 
-  constructor(private http: Http, private authService: Angular2TokenService, private route: ActivatedRoute) {
+  constructor(private http: Http, private authService: Angular2TokenService, private route: ActivatedRoute, private filter: FilterPipe) {
     this.headers.append("access-token", this.authService.currentAuthData["accessToken"])
     this.headers.append("expiry", this.authService.currentAuthData["expiry"])
     this.headers.append("token-type", this.authService.currentAuthData["tokenType"])
@@ -113,6 +115,12 @@ export class BookmarksComponent implements OnInit {
     this.increaseViewCount(bookmark.id)
 
     window.open(bookmark.url, "_blank")
+  }
+
+  filterByTag(value) {
+    // simply sorting by one tag right now
+    // problem is, how do i get back to the full list of bookmarks after being done filtering?
+    this.sortedBookmarks = this.bookmarks.filter(bookmark => this.filter.filterTags(bookmark, value))
   }
 
 }

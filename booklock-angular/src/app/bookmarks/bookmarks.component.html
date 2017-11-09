@@ -1,5 +1,6 @@
 <div class="center">
   <h3>Your Bookmarks</h3>
+  <p></p>
   <app-loader [loading]="loading"></app-loader>
 </div>
 
@@ -8,7 +9,7 @@
   
   <ul>
     <div class="row">
-      <li *ngFor="let bookmark of bookmarks | filter : searchText | paginate: { itemsPerPage: 20, currentPage: p }">
+      <li *ngFor="let bookmark of (sortedBookmarks ? sortedBookmarks : bookmarks) | filter : searchText | paginate: { itemsPerPage: 20, currentPage: p }">
 
         <div class="col s2 m3">
           <div class="card small grey lighten-3">
@@ -25,7 +26,7 @@
                        but we want a "more" button that will expand the card to show all of the tags -->
                   <li *ngFor="let tag of bookmark.tags; let i=index">
                     <div class="tag" *ngIf="i<5">
-                      <button class="btn">{{tag.name}}</button>
+                      <button class="btn" (click)="filterByTag(tag.name)">{{tag.name}}</button>
                     </div>
                     <div class="more-tags" *ngIf="i==6">
                       <button class="btn activator">more...</button>
