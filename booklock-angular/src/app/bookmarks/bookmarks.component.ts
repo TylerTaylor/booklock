@@ -11,10 +11,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BookmarksComponent implements OnInit {
   title = 'Bookmarks';
+  page: number = 1;
   bookmarks;
   sortedBookmarks;
   tagToFilter;
-  page: number = 1;
+  filters: Array<string> = [
+    'Date Added',
+    'Most Viewed',
+    'A-Z'
+  ]
+  selectedFilter = this.filters[0];
+  filterVar = '-created_at';
 
   loading: boolean = false;
   moreTags: boolean = false;
@@ -123,6 +130,34 @@ export class BookmarksComponent implements OnInit {
     // problem is, how do i get back to the full list of bookmarks after being done filtering?
     this.tagToFilter = value.toLowerCase()
     this.sortedBookmarks = this.bookmarks.filter(bookmark => this.filter.filterTags(bookmark, value))
+  }
+
+  selectFilter(filter: string) {
+    this.selectedFilter = filter;
+ 
+    if (filter == "Date Added") {
+      if (this.filterVar == "-created_at") {
+        this.filterVar = 'created_at';
+      } else {
+        this.filterVar = '-created_at';
+      }
+    }
+
+    if (filter == "Most Viewed") {
+      if (this.filterVar == '-view_count') {
+        this.filterVar = 'view_count';
+      } else {
+        this.filterVar = '-view_count';
+      }
+    }
+
+    if (filter == "A-Z") {
+      if (this.filterVar == 'name') {
+        this.filterVar = '-name';
+      } else {
+        this.filterVar = 'name';
+      }
+    }
   }
 
   endFilter() {

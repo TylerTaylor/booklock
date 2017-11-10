@@ -91,11 +91,16 @@
     width: 25%;
 }
 
-.tag-filters {
+.tag-filters, .filter-by {
     font-size: 0.9em;
 }
 
 .tag-filters i, .tag-filters .btn {
     margin-left: 5px;
     align-self: center;
+}
+
+.selected {
+    /* text-transform: uppercase; */
+    font-weight: 600;
 }

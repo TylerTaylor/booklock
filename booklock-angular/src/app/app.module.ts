@@ -25,6 +25,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterPipe } from './filter.pipe';
 import { EditBookmarkComponent } from './edit-bookmark/edit-bookmark.component';
+import { OrderByPipe } from './order-by.pipe';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { EditBookmarkComponent } from './edit-bookmark/edit-bookmark.component';
     LoginComponent,
     LoaderComponent,
     FilterPipe,
-    EditBookmarkComponent
+    EditBookmarkComponent,
+    OrderByPipe
   ],
   imports: [
     BrowserModule,

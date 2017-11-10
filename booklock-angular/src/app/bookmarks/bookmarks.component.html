@@ -5,8 +5,31 @@
 </div>
 
 <div class="bookmarks-container" *ngIf="!loading">
+  <!-- ############### -->
+  <!-- FILTER CONTROLS -->
+  <!-- ############### -->
   <div class="filter-controls">
     <input [(ngModel)]="searchText" placeholder="Search">
+
+    <div *ngIf="!tagToFilter" class="filter-by flex-container">
+      <p>
+        Filter by:
+      </p>
+
+      <!-- Should loop through instead for flexibility -->
+      <!-- how do we get this up on the same line as the p above? we did it below in the bookmark cards... -->
+      <ul class="flex-container">
+        <li *ngFor="let filter of filters; let i=index" style="padding-left: 5px;" [class.selected]="filter === selectedFilter">
+          <!-- Have to do this to prevent adding a trailing | after our last item -->
+          <div *ngIf="i < (filters.length - 1)">
+            <a (click)="selectFilter(filter)">{{filter}}</a> |
+          </div>
+          <div *ngIf="i == (filters.length - 1)">
+            <a (click)="selectFilter(filter)">{{filter}}</a>
+          </div>
+        </li>
+      </ul>
+    </div>
 
     <div *ngIf="tagToFilter" class="tag-filters">
       <p>Filter by tag: <button class="btn">{{tagToFilter}}</button><button class="btn-flat"><i class="material-icons" (click)="endFilter()">clear</i></button></p>
@@ -14,9 +37,12 @@
 
   </div>
   
+  <!-- ######################## -->
+  <!-- DISPLAYING THE BOOKMARKS -->
+  <!-- ######################## -->
   <ul>
     <div class="row">
-      <li *ngFor="let bookmark of (sortedBookmarks ? sortedBookmarks : bookmarks) | filter : searchText | paginate: { itemsPerPage: 20, currentPage: p }">
+      <li *ngFor="let bookmark of (sortedBookmarks ? sortedBookmarks : bookmarks) | filter : searchText | orderBy : filterVar | paginate: { itemsPerPage: 20, currentPage: p }">
 
         <div class="col s2 m3">
           <div class="card small grey lighten-3">
@@ -41,7 +67,7 @@
                   </li>
                 </ul>
 
-              </div>
+              </div> <!-- end tags flex-container --> 
 
             </div>
 
