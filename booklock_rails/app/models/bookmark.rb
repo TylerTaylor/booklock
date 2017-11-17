@@ -1,6 +1,7 @@
 class Bookmark < ApplicationRecord
   # attr_accessor :name, :url, :reading_list, :tag_list
   belongs_to :user, required: false
+  belongs_to :folder, required: false
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
 
