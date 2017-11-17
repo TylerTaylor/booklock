@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171117151137) do
+ActiveRecord::Schema.define(version: 20171117152551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,7 +38,9 @@ ActiveRecord::Schema.define(version: 20171117151137) do
     t.bigint "bookmark_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "folder_id"
     t.index ["bookmark_id"], name: "index_taggings_on_bookmark_id"
+    t.index ["folder_id"], name: "index_taggings_on_folder_id"
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
   end
 
@@ -79,5 +81,6 @@ ActiveRecord::Schema.define(version: 20171117151137) do
 
   add_foreign_key "bookmarks", "users"
   add_foreign_key "taggings", "bookmarks"
+  add_foreign_key "taggings", "folders"
   add_foreign_key "taggings", "tags"
 end
