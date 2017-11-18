@@ -10,4 +10,5 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :bookmarks
+  has_many :folders
 end

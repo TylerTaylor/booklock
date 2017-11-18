@@ -6,7 +6,7 @@ class BookmarksController < ApplicationController
     if params[:tag]
       @bookmarks = Bookmark.tagged_with(params[:tag])
     else
-      @bookmarks = Bookmark.where(user_id: @current_user.id).order('created_at DESC')
+      @bookmarks = Bookmark.where(user_id: @current_user.id).order('created_at DESC').includes(:tags, :taggings)
     end
 
     render json: @bookmarks, :include => :tags
@@ -115,10 +115,11 @@ class BookmarksController < ApplicationController
       reading_list_objects = Plist.parse_xml(plist_file)["Children"].select{|e|e["Title"]=="com.apple.ReadingList"}[0]["Children"]
 
       bookmarks_data = data["Children"].select{|e|e['Title']!="com.apple.ReadingList"}
-      new_bookmarks = []
 
       bookmark_folders = bookmarks_data.select { |b| b['WebBookmarkType'] == 'WebBookmarkTypeList' }
       bookmark_leafs = bookmarks_data.select { |b| b['WebBookmarkType'] == 'WebBookmarkTypeLeaf' }
+
+      new_bookmarks = []
 
       # Here we select all our folders
       bookmarks_menu = bookmarks_data.select { |b| b['Title'] == 'BookmarksMenu' }[0]
@@ -128,9 +129,10 @@ class BookmarksController < ApplicationController
         puts "FOLDER TITLE"
         puts b['Title'] #=> prints out the title... we dont really care about this, just for figuring stuff out
         puts " "
-
         # b["Children"] is where we can find our links inside the bookmark folder
-
+        
+        new_top_level_folder = @current_user.folders.create(name: b['Title'])
+        # binding.pry
         # in the BookmarksMenu folder we have more children
 
         # child["URIDictionary"]["title"] => link name
@@ -159,7 +161,7 @@ class BookmarksController < ApplicationController
               puts " "
               puts " "
 
-              # TODO: Create folder object
+              new_folder = @current_user.folders.create(name: folder['Title'])
               # binding.pry
   
               # our "item" aka folder contains other items, iterate through them to create?
@@ -178,12 +180,31 @@ class BookmarksController < ApplicationController
                     # if we have x["URLString"] then we have a item within this folder (item)
                     if x["Title"]
                       puts "WE HAVE ANOTHER FOLDER - #{x['Title']}"
-                      # TODO: Handle a folder within another folder... and links within that... ugh
-                      # binding.pry
+                      # Handle a folder within another folder... and links within that... ugh
+                      nested_folder = Folder.create(name: x['Title'], parent_id: new_folder.id)
+                      x['Children'].each do |x_child|
+                        # @current_user.bookmarks.create(name: x_child['URIDictionary']['title'], 
+                        #                                url: x_child['URLString'], 
+                        #                                reading_list: false,
+                        #                                folder: nested_folder)
+                        new_bookmarks << Bookmark.new(name: x_child['URIDictionary']['title'], 
+                                                      url: x_child['URLString'], 
+                                                      reading_list: false,
+                                                      folder: nested_folder,
+                                                      user_id: @current_user.id)
+                      end
                     elsif x["URLString"]
                       puts "-- #{x["URIDictionary"]["title"]}"
-                      # TODO: Create a bookmark that belongs to this folder
-                      # binding.pry
+                      # Create a bookmark that belongs to this folder
+                      # @current_user.bookmarks.create(name: x['URIDictionary']['title'], 
+                      #                                url: x['URLString'],
+                      #                                reading_list: false,
+                      #                                folder: new_folder)
+                      new_bookmarks << Bookmark.new(name: x['URIDictionary']['title'], 
+                                                    url: x['URLString'],
+                                                    reading_list: false,
+                                                    folder: new_folder,
+                                                    user_id: @current_user.id)
                     end
                   end
                 end
@@ -196,6 +217,20 @@ class BookmarksController < ApplicationController
               # link['URIDictionary']['title'] => name
               # binding.pry
               puts "item: #{item['URIDictionary']['title']}"
+              # TODO: Create a bookmark item.. are we within a folder? No?
+              if new_top_level_folder
+                # @current_user.bookmarks.create(name: item['URIDictionary']['title'],
+                #                                url: item['URLString'],
+                #                                reading_list: false,
+                #                                folder: new_top_level_folder)
+                new_bookmarks << Bookmark.new(name: item['URIDictionary']['title'],
+                                              url: item['URLString'],
+                                              reading_list: false,
+                                              folder: new_top_level_folder,
+                                              user_id: @current_user.id)
+              else
+                binding.pry
+              end
             end
             # puts "-- #{link["URIDictionary"]["title"]}"
           end
@@ -215,31 +250,12 @@ class BookmarksController < ApplicationController
         # THIS IS WORKING but commented out for more testing
 
         # @current_user.bookmarks.create(name: bookmark['URIDictionary']['title'], url: bookmark['URLString'], reading_list: false)
+        new_bookmarks << Bookmark.new(name: bookmark['URIDictionary']['title'], url: bookmark['URLString'], reading_list: false)
       end
 
-      
-
-      # new_reading_list = []
-
-      # reading_list_objects.each do |obj|
-      #   new_bookmark = {}
-
-      #   # For each link object we have
-      #   obj.each do |key, val|
-          
-      #     # Two separate if statements because we want both.. is this the best way to go about it?
-      #     if key == "URIDictionary"
-      #       new_bookmark["title"] = val["title"]
-      #     end
-
-      #     if key == "URLString"
-      #       new_bookmark["url"] = val
-      #     end
-
-      #   end # end obj.each
-
-      #   new_reading_list << new_bookmark
-      # end
+    Bookmark.transaction do
+      new_bookmarks.map {|b| b.save }
+    end
 
     # rescue NoMethodError => e
     #   binding.pry
