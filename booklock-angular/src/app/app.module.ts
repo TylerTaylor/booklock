@@ -1,3 +1,4 @@
+import { DataService } from './services/data.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -55,7 +56,7 @@ import { OrderByPipe } from './order-by.pipe';
     RouterModule,
     NgxPaginationModule
   ],
-  providers: [ Angular2TokenService, AuthService, AuthGuard, LoggedInGuard, FilterPipe ],
+  providers: [ Angular2TokenService, AuthService, AuthGuard, LoggedInGuard, FilterPipe, DataService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

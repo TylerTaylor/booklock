@@ -1,3 +1,4 @@
+import { DataService } from './../services/data.service';
 import { FilterPipe } from './../filter.pipe';
 import { Angular2TokenService } from 'angular2-token';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 export class BookmarksComponent implements OnInit {
   title = 'Bookmarks';
   page: number = 1;
-  bookmarks;
+  bookmarks = null;
   sortedBookmarks;
   tagToFilter;
   filters: Array<string> = [
@@ -28,7 +29,7 @@ export class BookmarksComponent implements OnInit {
 
   headers = new Headers();
 
-  constructor(private http: Http, private authService: Angular2TokenService, private route: ActivatedRoute, private filter: FilterPipe) {
+  constructor(private http: Http, private authService: Angular2TokenService, private route: ActivatedRoute, private filter: FilterPipe, private dataService:DataService) {
     this.headers.append("access-token", this.authService.currentAuthData["accessToken"])
     this.headers.append("expiry", this.authService.currentAuthData["expiry"])
     this.headers.append("token-type", this.authService.currentAuthData["tokenType"])
@@ -65,11 +66,21 @@ export class BookmarksComponent implements OnInit {
     //     })
     // }
 
-    this.http.get('http://localhost:3000/bookmarks.json', options)
-      .subscribe(res => {
-        this.loading = false;
-        this.bookmarks = res.json();
-      })
+    // debugger;
+    // if (this.bookmarks == null) {
+    //   this.http.get('http://localhost:3000/bookmarks.json', options)
+    //     .subscribe(res => {
+    //       this.loading = false;
+    //       this.bookmarks = res.json();
+    //     })
+    // }
+
+    // use dataService to get our bookmarks data. dataService will know whether we already have this data or not to prevent server requests
+    this.dataService.getData().subscribe(data => {
+      console.log(data)
+      this.bookmarks = data;
+      this.loading = false;
+    })
 
   }
 
