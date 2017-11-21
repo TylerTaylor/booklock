@@ -12,7 +12,7 @@ export class DataService {
   private data;
   private observable: Observable<any>;
 
-  constructor(private http:Http, private authService:Angular2TokenService) { }
+  constructor(private http:Http, private authService:Angular2TokenService) {}
 
   getData() {
     console.log("DataService getData called")
@@ -53,6 +53,14 @@ export class DataService {
         .share();
         return this.observable;
     }
+  }
+
+  addToData(data) {
+    this.data.push(data)
+  }
+
+  updateData(item) {
+
   }
 
 }
