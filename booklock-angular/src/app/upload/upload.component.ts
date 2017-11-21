@@ -1,3 +1,4 @@
+import { DataService } from './../services/data.service';
 import { Angular2TokenService } from 'angular2-token';
 import { Router } from '@angular/router';
 import { Http, RequestOptions, Headers } from '@angular/http';
@@ -21,9 +22,7 @@ export class UploadComponent implements OnInit {
     tag_list: ''
   }
 
-  constructor(private http: Http, private router: Router, private authService:Angular2TokenService) {
-    // debugger;
-  }
+  constructor(private http: Http, private router: Router, private authService:Angular2TokenService, private dataService:DataService) {}
 
   ngOnInit() {
   }
@@ -105,7 +104,8 @@ export class UploadComponent implements OnInit {
       .catch(error => Observable.throw(error))
       .subscribe(
         data => {
-          this.router.navigate(['/bookmarks'])
+          this.dataService.addToData(data);
+          this.router.navigate(['/bookmarks']);
         },
 
         error => console.log(error)
