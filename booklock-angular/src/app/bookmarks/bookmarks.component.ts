@@ -77,7 +77,6 @@ export class BookmarksComponent implements OnInit {
 
     // use dataService to get our bookmarks data. dataService will know whether we already have this data or not to prevent server requests
     this.dataService.getData().subscribe(data => {
-      console.log(data)
       this.bookmarks = data;
       this.loading = false;
     })
