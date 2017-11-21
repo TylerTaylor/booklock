@@ -51,12 +51,12 @@
               <!-- <span class="card-title"><a href="{{bookmark.url}}" target="_blank" (click)="increaseViewCount(bookmark.id)">{{ bookmark.name }}</a></span> -->
               <span class="card-title"><a class="add-pointer" (click)="linkClicked(bookmark)">{{ bookmark.name }}</a></span>
               <p>Views: {{bookmark.view_count}}</p>
-
+              
               <div class="tags flex-container">
                 <p>Tags:</p>
                 <ul class="flex-container" *ngIf="!moreTags">
                   <!-- We want to keep the initial list of tags small to fit the card
-                       but we want a "more" button that will expand the card to show all of the tags -->
+                    but we want a "more" button that will expand the card to show all of the tags -->
                   <li *ngFor="let tag of bookmark.tags; let i=index">
                     <div class="tag" *ngIf="i<5">
                       <button class="btn" (click)="filterByTag(tag.name)">{{tag.name}}</button>
@@ -66,9 +66,10 @@
                     </div>
                   </li>
                 </ul>
+                  
+              </div> <!-- end tags flex-container -->
 
-              </div> <!-- end tags flex-container --> 
-
+              <p class="path"><em>path/goes/here</em></p>
             </div>
 
             <div class="card-reveal">
