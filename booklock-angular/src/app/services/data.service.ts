@@ -60,7 +60,8 @@ export class DataService {
   }
 
   updateData(item) {
-
+    let indexToEdit = this.data.findIndex(i => i.id == item.id)
+    this.data[indexToEdit] = item
   }
 
 }

@@ -1,3 +1,4 @@
+import { DataService } from './../services/data.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Angular2TokenService } from 'angular2-token';
@@ -15,7 +16,7 @@ export class EditBookmarkComponent implements OnInit {
 
   bookmark;
 
-  constructor(private authService: Angular2TokenService, private http: Http, private route: ActivatedRoute, private router: Router) {
+  constructor(private authService: Angular2TokenService, private http: Http, private route: ActivatedRoute, private router: Router, private dataService: DataService) {
     this.headers.append("access-token", this.authService.currentAuthData["accessToken"])
     this.headers.append("expiry", this.authService.currentAuthData["expiry"])
     this.headers.append("token-type", this.authService.currentAuthData["tokenType"])
@@ -40,6 +41,7 @@ export class EditBookmarkComponent implements OnInit {
       .map(res => res.json())
       .catch(error => Observable.throw(error))
       .subscribe(res => {
+        this.dataService.updateData(res)
         this.router.navigate(['/bookmarks'])
       })
   }
