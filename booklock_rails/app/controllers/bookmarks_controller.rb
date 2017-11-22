@@ -32,7 +32,7 @@ class BookmarksController < ApplicationController
   # PATCH/PUT /bookmarks/1
   def update
     if @bookmark.update(bookmark_params)
-      render json: @bookmark
+      render json: @bookmark, :include => :tags
     else
       render json: @bookmark.errors, status: :unprocessable_entity
     end
