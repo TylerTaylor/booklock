@@ -104,3 +104,18 @@
     /* text-transform: uppercase; */
     font-weight: 600;
 }
+/* 
+button:active, button:focus {
+    border-style: none;
+    text-decoration: none;
+} */
+
+.btn-flat {
+    /* outline: none;
+    transition: none; */
+}
+
+.btn-flat:active, .btn-flat:focus {
+    /* border-style: outset; */
+    background-color: transparent;
+}

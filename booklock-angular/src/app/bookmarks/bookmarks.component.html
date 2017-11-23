@@ -86,7 +86,11 @@
             <div class="card-action center">  
               <!-- This favorite_border should switch to 'favorite' when clicked / already favorited in the backend
                 and the link should go to a 'like' or 'favorite' feature in the backend -->
-              <button class="btn-flat"><i class="material-icons grey-text">favorite_border</i></button>
+              <button class="btn-flat click-to-toggle" (click)="addToFavorites(bookmark.id)">
+                <i *ngIf="!bookmark.is_favorite" class="material-icons grey-text">favorite_border</i>
+                <i *ngIf="bookmark.is_favorite" class="material-icons red-text">favorite</i>
+              </button>
+
               <button class="btn-flat" [routerLink]="['/edit', bookmark.id]"><i class="material-icons grey-text">edit</i></button>
               <button class="btn-flat center" (click)="deleteBookmark(bookmark.id)"><i class="material-icons grey-text">delete</i></button>
             </div> <!-- end card-action -->

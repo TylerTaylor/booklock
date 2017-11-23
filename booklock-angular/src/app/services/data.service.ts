@@ -64,4 +64,22 @@ export class DataService {
     this.data[indexToEdit] = item
   }
 
+  addToFavorites(id) {
+    let headers = new Headers();
+    headers.append("access-token", this.authService.currentAuthData["accessToken"])
+    headers.append("expiry", this.authService.currentAuthData["expiry"])
+    headers.append("token-type", this.authService.currentAuthData["tokenType"])
+    headers.append("uid", this.authService.currentAuthData["uid"])
+    headers.append("client", this.authService.currentAuthData["client"])
+    let options = new RequestOptions({ headers: headers })
+
+    this.http.post('http://localhost:3000/favorite/' + id, id, options)
+      .subscribe(response => {
+        let item = this.data.filter(i => i.id == id)[0]
+        item.is_favorite = !item.is_favorite
+        this.updateData(item)
+      })
+
+  }
+
 }

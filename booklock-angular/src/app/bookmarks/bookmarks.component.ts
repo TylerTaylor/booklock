@@ -109,6 +109,22 @@ export class BookmarksComponent implements OnInit {
     debugger;
   }
 
+  addToFavorites(id) {
+    // Send request to rails backend to notify this bookmark is a favorite
+    this.dataService.addToFavorites(id)
+    // let options = new RequestOptions({ headers: this.headers })
+
+    // let url = 'http://localhost:3000/favorite/' + id
+
+    // this.http.post(url, id, options)
+    //   .subscribe(data => {
+    //     debugger;
+    //   })
+    // upon completion, update the item in our data observable to reflect the new changes
+
+    // should both these things be done via dataService? probably
+  }
+
   showMoreTags() {
     this.moreTags = true;
   }
