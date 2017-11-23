@@ -11,4 +11,7 @@ class User < ActiveRecord::Base
 
   has_many :bookmarks
   has_many :folders
+
+  has_many :favorite_bookmarks
+  has_many :favorites, through: :favorite_bookmarks, source: :bookmark
 end

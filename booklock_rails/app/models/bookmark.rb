@@ -10,6 +10,9 @@ class Bookmark < ApplicationRecord
   validates :name, presence: true
   validates :url, presence: true, uniqueness: true
 
+  has_many :favorite_bookmarks
+  has_many :favorited_by, through: :favorite_bookmarks, source: :user
+
   def self.tagged_with(name)
     Tag.find_by_name!(name).bookmarks
   end
