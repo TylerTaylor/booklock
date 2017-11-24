@@ -54,7 +54,7 @@ class BookmarksController < ApplicationController
     # bookmarks_xml = system("plutil", "-convert", "xml1", "-o", "-", path)
 
     # We also need to do this for actual bookmarks, not just reading list
-    # build_reading_list(bookmarks_xml)
+    build_reading_list(bookmarks_xml)
     build_bookmarks_list(bookmarks_xml)
   end
 
