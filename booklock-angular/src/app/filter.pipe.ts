@@ -11,6 +11,10 @@ export class FilterPipe implements PipeTransform {
 
         searchText = searchText.toLowerCase();
 
+        if (searchText == "is_favorite") {
+            debugger;
+        }
+
         return items.filter( item => {
             // look for match in name || tags
             return ( item.name.toLowerCase().includes(searchText) || this.filterTags(item, searchText) );
@@ -23,6 +27,13 @@ export class FilterPipe implements PipeTransform {
                 return item;
             }
         }
+    }
+
+    filterFavorites(items, value) {
+        let filtered = items.filter(item => {
+            return item.is_favorite == true
+        })
+        return filtered
     }
 
 }

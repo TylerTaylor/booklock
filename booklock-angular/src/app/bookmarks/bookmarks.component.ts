@@ -19,7 +19,8 @@ export class BookmarksComponent implements OnInit {
   filters: Array<string> = [
     'Date Added',
     'Most Viewed',
-    'A-Z'
+    'A-Z',
+    'Favorites'
   ]
   selectedFilter = this.filters[0];
   filterVar = '-created_at';
@@ -112,17 +113,6 @@ export class BookmarksComponent implements OnInit {
   addToFavorites(id) {
     // Send request to rails backend to notify this bookmark is a favorite
     this.dataService.addToFavorites(id)
-    // let options = new RequestOptions({ headers: this.headers })
-
-    // let url = 'http://localhost:3000/favorite/' + id
-
-    // this.http.post(url, id, options)
-    //   .subscribe(data => {
-    //     debugger;
-    //   })
-    // upon completion, update the item in our data observable to reflect the new changes
-
-    // should both these things be done via dataService? probably
   }
 
   showMoreTags() {
@@ -159,8 +149,9 @@ export class BookmarksComponent implements OnInit {
   }
 
   selectFilter(filter: string) {
+    this.endFilter()
     this.selectedFilter = filter;
- 
+
     if (filter == "Date Added") {
       if (this.filterVar == "-created_at") {
         this.filterVar = 'created_at';
@@ -183,6 +174,15 @@ export class BookmarksComponent implements OnInit {
       } else {
         this.filterVar = 'name';
       }
+    }
+
+    if (filter == "Favorites") {
+      this.sortedBookmarks = this.filter.filterFavorites(this.bookmarks, "is_favorite")
+      // if (this.filterVar == 'is_favorite') {
+      //   this.filterVar = '-is_favorite';
+      // } else {
+      //   this.filterVar = 'is_favorite';
+      // }
     }
   }
 
