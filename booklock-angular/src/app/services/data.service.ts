@@ -9,14 +9,14 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DataService {
 
-  private data;
+  private data = null;
   private observable: Observable<any>;
 
   constructor(private http:Http, private authService:Angular2TokenService) {}
 
   getData() {
     console.log("DataService getData called")
-    if(this.data) {
+    if(this.data && this.data.length > 0) {
       console.log('data already available!');
       // if 'data' is available just return it as 'Observable'
       return Observable.of(this.data);
