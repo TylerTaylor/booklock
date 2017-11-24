@@ -11,6 +11,23 @@
   <div class="filter-controls">
     <input [(ngModel)]="searchText" placeholder="Search">
 
+    <div class="filter-by flex-container">
+      <p>
+        Viewing:
+      </p>
+
+      <ul class="flex-container">
+        <li *ngFor="let option of viewingOptions; let i = index" style="padding-left: 5px;" [class.selected]="option === selectedViewingOption">
+          <div *ngIf="i < (viewingOptions.length - 1)">
+            <a (click)="selectOption(option)">{{option}}</a> |
+          </div>
+          <div *ngIf="i == (viewingOptions.length -1)">
+            <a (click)="selectOption(option)">{{option}}</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+
     <div *ngIf="!tagToFilter" class="filter-by flex-container">
       <p>
         Filter by:
