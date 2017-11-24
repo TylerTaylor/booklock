@@ -36,4 +36,11 @@ export class FilterPipe implements PipeTransform {
         return filtered
     }
 
+    filterReadingList(items, value) {
+        let filtered = items.filter(item => {
+            return item.reading_list == true
+        })
+        return filtered
+    }
+
 }
