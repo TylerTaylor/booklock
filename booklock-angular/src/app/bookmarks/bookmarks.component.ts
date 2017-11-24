@@ -25,6 +25,13 @@ export class BookmarksComponent implements OnInit {
   selectedFilter = this.filters[0];
   filterVar = '-created_at';
 
+  viewingOptions: Array<string> = [
+    'All Bookmarks',
+    'Reading List',
+    'Favorites'
+  ]
+  selectedViewingOption = this.viewingOptions[0];
+
   loading: boolean = false;
   moreTags: boolean = false;
 
@@ -178,17 +185,31 @@ export class BookmarksComponent implements OnInit {
 
     if (filter == "Favorites") {
       this.sortedBookmarks = this.filter.filterFavorites(this.bookmarks, "is_favorite")
-      // if (this.filterVar == 'is_favorite') {
-      //   this.filterVar = '-is_favorite';
-      // } else {
-      //   this.filterVar = 'is_favorite';
-      // }
     }
   }
 
   endFilter() {
     this.tagToFilter = null;
     this.sortedBookmarks = null;
+  }
+
+  selectOption(option) {
+    this.selectedViewingOption = option;
+
+    // We need to set this.bookmarks as our desired value
+
+    // For "All Bookmarks" - obv we need the whole collection
+    if (option == "All Bookmarks") {
+      // Clear all filters because All is the default
+      this.endFilter()
+    } else if (option == 'Reading List') {
+      // For "Reading List" - we only want items with the reading_list property set to "true"
+      this.sortedBookmarks = this.filter.filterReadingList(this.bookmarks, "reading_list")
+    } else if (option == 'Favorites') {
+      // For "Favorites" - we only want items with the is_favorite property set to "true"
+      this.sortedBookmarks = this.filter.filterFavorites(this.bookmarks, "is_favorite")
+    }
+
   }
 
 }
