@@ -28,6 +28,7 @@ import { FilterPipe } from './filter.pipe';
 import { EditBookmarkComponent } from './edit-bookmark/edit-bookmark.component';
 import { OrderByPipe } from './order-by.pipe';
 import { RegisterComponent } from './register/register.component';
+import { TruncatePipe } from './truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { RegisterComponent } from './register/register.component';
     FilterPipe,
     EditBookmarkComponent,
     OrderByPipe,
-    RegisterComponent
+    RegisterComponent,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,

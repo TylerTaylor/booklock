@@ -66,7 +66,9 @@
             <div class="card-content" [ngClass]="{'add-length': moreTags}">
               <!-- When this link is clicked, add to our view count -->
               <!-- <span class="card-title"><a href="{{bookmark.url}}" target="_blank" (click)="increaseViewCount(bookmark.id)">{{ bookmark.name }}</a></span> -->
-              <span class="card-title"><a class="add-pointer" (click)="linkClicked(bookmark)">{{ bookmark.name }}</a></span>
+              <span class="card-title">
+                <a materialize="tooltip" class="add-pointer tooltipped" (click)="linkClicked(bookmark)" data-position="bottom" data-delay="20" [attr.data-tooltip]="bookmark.name">{{ bookmark.name | truncate }}</a>
+              </span>
               <p>Views: {{bookmark.view_count}}</p>
               
               <div class="tags flex-container">
